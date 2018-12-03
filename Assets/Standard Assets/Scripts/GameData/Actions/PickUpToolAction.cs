@@ -7,8 +7,8 @@ public class PickUpToolAction : GoapAction
 	private SupplyPileComponent targetSupplyPile; // where we get the tool from
 
 	public PickUpToolAction () {
-		addPrecondition ("hasTool", false); // don't get a tool if we already have one
-		addEffect ("hasTool", true); // we now have a tool
+		AddPrecondition ("hasTool", false); // don't get a tool if we already have one
+		AddEffect ("hasTool", true); // we now have a tool
 	}
 
 	
@@ -35,7 +35,8 @@ public class PickUpToolAction : GoapAction
 		SupplyPileComponent closest = null;
 		float closestDist = 0;
 
-		foreach (SupplyPileComponent supply in supplyPiles) {
+		foreach (SupplyPileComponent supply in supplyPiles)
+        {
 			if (supply.numTools > 0) {
 				if (closest == null) {
 					// first one, so choose it for now
@@ -67,12 +68,12 @@ public class PickUpToolAction : GoapAction
 			targetSupplyPile.numTools -= 1;
 			hasTool = true;
 
-			// create the tool and add it to the agent
+            // create the tool and add it to the agent
 
-			BackpackComponent backpack = (BackpackComponent)agent.GetComponent(typeof(BackpackComponent));
-			GameObject prefab = Resources.Load<GameObject> (backpack.toolType);
+            Blackboard blackBoard = agent.GetComponent<NPC_Entities>().blackBoard;
+            GameObject prefab = Resources.Load<GameObject> (blackBoard.toolType);
 			GameObject tool = Instantiate (prefab, transform.position, transform.rotation) as GameObject;
-			backpack.tool = tool;
+			blackBoard.tool = tool;
 			tool.transform.parent = transform; // attach the tool
 
 			return true;

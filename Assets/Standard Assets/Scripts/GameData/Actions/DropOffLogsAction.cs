@@ -8,9 +8,9 @@ public class DropOffLogsAction: GoapAction
 	private SupplyPileComponent targetSupplyPile; // where we drop off the logs
 	
 	public DropOffLogsAction () {
-		addPrecondition ("hasLogs", true); // can't drop off logs if we don't already have some
-		addEffect ("hasLogs", false); // we now have no logs
-		addEffect ("collectLogs", true); // we collected logs
+		AddPrecondition ("hasLogs", true); // can't drop off logs if we don't already have some
+		AddEffect ("hasLogs", false); // we now have no logs
+		AddEffect ("collectLogs", true); // we collected logs
 	}
 	
 	
@@ -63,10 +63,10 @@ public class DropOffLogsAction: GoapAction
 	
 	public override bool Perform (GameObject agent)
 	{
-		BackpackComponent backpack = (BackpackComponent)agent.GetComponent(typeof(BackpackComponent));
-		targetSupplyPile.numLogs += backpack.numLogs;
+        Blackboard blackBoard = agent.GetComponent<NPC_Entities>().blackBoard;
+        targetSupplyPile.numLogs += blackBoard.numLogs;
 		droppedOffLogs = true;
-		backpack.numLogs = 0;
+        blackBoard.numLogs = 0;
 		
 		return true;
 	}

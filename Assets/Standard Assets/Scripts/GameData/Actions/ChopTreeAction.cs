@@ -11,9 +11,9 @@ public class ChopTreeAction : GoapAction
 	public float workDuration = 2; // seconds
 	
 	public ChopTreeAction () {
-		addPrecondition ("hasTool", true); // we need a tool to do this
-		addPrecondition ("hasLogs", false); // if we have logs we don't want more
-		addEffect ("hasLogs", true);
+		AddPrecondition ("hasTool", true); // we need a tool to do this
+		AddPrecondition ("hasLogs", false); // if we have logs we don't want more
+		AddEffect ("hasLogs", true);
 	}
 	
 	
@@ -71,15 +71,15 @@ public class ChopTreeAction : GoapAction
 			startTime = Time.time;
 		
 		if (Time.time - startTime > workDuration) {
-			// finished chopping
-			BackpackComponent backpack = (BackpackComponent)agent.GetComponent(typeof(BackpackComponent));
-			backpack.numLogs += 1;
+            // finished chopping
+            Blackboard blackBoard = agent.GetComponent<NPC_Entities>().blackBoard;
+			blackBoard.numLogs += 1;
 			chopped = true;
-			ToolComponent tool = backpack.tool.GetComponent(typeof(ToolComponent)) as ToolComponent;
+			ToolComponent tool = blackBoard.tool.GetComponent(typeof(ToolComponent)) as ToolComponent;
 			tool.use(0.34f);
 			if (tool.destroyed()) {
-				Destroy(backpack.tool);
-				backpack.tool = null;
+				Destroy(blackBoard.tool);
+				blackBoard.tool = null;
 			}
 		}
 		return true;

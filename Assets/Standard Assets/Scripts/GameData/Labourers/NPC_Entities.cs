@@ -9,23 +9,44 @@ using System.Collections.Generic;
  * the createGoalState() method that will populate the goal for the GOAP
  * planner.
  */
-public abstract class Labourer : MonoBehaviour, IGoap
+public abstract class NPC_Entities : MonoBehaviour, IGoap
 {
-	public BackpackComponent backpack;
-	public float moveSpeed = 1;
+    public float moveSpeed = 1;
+    public Blackboard blackBoard;
+
+    protected HashSet<KeyValuePair<string, object>> goal = new HashSet<KeyValuePair<string, object>>();
 
 
-	void Start ()
+   [HideInInspector]
+    public string currentPlan = "Plan:";
+
+    [HideInInspector]
+    public string currentGoal
+    {
+        get
+        {
+            var t = "";
+            foreach (KeyValuePair<string, object> g in goal)
+            {
+                t ="Goal: " + g.Key.ToString() + " <|:|> " + g.Value.ToString();
+            }
+            return t;
+        }
+    }
+
+
+    void Start ()
 	{
-		if (backpack == null)
-			backpack = gameObject.AddComponent<BackpackComponent>();
-		if (backpack.tool == null) {
-			GameObject prefab = Resources.Load<GameObject> (backpack.toolType);
+		if (blackBoard == null)
+			blackBoard = gameObject.GetComponent<Blackboard>();
+		if (blackBoard.tool == null) {
+			GameObject prefab = Resources.Load<GameObject> (blackBoard.toolType);
 			GameObject tool = Instantiate (prefab, transform.position, transform.rotation) as GameObject;
-			backpack.tool = tool;
+			blackBoard.tool = tool;
 			tool.transform.parent = transform; // attach the tool
 		}
 	}
+    
 
 
 	void Update ()
@@ -33,16 +54,24 @@ public abstract class Labourer : MonoBehaviour, IGoap
 
 	}
 
-	/**
+
+    public void UpdateWorldState(object key, object value)
+    {
+        //update the world state
+    }
+
+
+    /**
 	 * Key-Value data that will feed the GOAP actions and system while planning.
 	 */
-	public HashSet<KeyValuePair<string,object>> GetWorldState () {
+    public HashSet<KeyValuePair<string,object>> GetMyWorldState ()
+    {
 		HashSet<KeyValuePair<string,object>> worldData = new HashSet<KeyValuePair<string,object>> ();
 
-		worldData.Add(new KeyValuePair<string, object>("hasOre", (backpack.numOre > 0) ));
-		worldData.Add(new KeyValuePair<string, object>("hasLogs", (backpack.numLogs > 0) ));
-		worldData.Add(new KeyValuePair<string, object>("hasFirewood", (backpack.numFirewood > 0) ));
-		worldData.Add(new KeyValuePair<string, object>("hasTool", (backpack.tool != null) ));
+		worldData.Add(new KeyValuePair<string, object>("hasOre", (blackBoard.numOre > 0) ));
+		worldData.Add(new KeyValuePair<string, object>("hasLogs", (blackBoard.numLogs > 0) ));
+		worldData.Add(new KeyValuePair<string, object>("hasFirewood", (blackBoard.numFirewood > 0) ));
+		worldData.Add(new KeyValuePair<string, object>("hasTool", (blackBoard.tool != null) ));
 
 		return worldData;
 	}
@@ -50,7 +79,7 @@ public abstract class Labourer : MonoBehaviour, IGoap
 	/**
 	 * Implement in subclasses
 	 */
-	public abstract HashSet<KeyValuePair<string,object>> CreateGoalState ();
+	public abstract HashSet<KeyValuePair<string,object>> CreateMyGoalState ();
 
 
 	public void PlanFailed (HashSet<KeyValuePair<string, object>> failedGoal)
@@ -63,7 +92,7 @@ public abstract class Labourer : MonoBehaviour, IGoap
 	public void PlanFound (HashSet<KeyValuePair<string, object>> goal, Queue<GoapAction> actions)
 	{
 		// Yay we found a plan for our goal
-		Debug.Log ("<color=green>Plan found</color> "+GoapAgent.PrettyPrint(actions));
+		currentPlan = ("Plan: "+ GoapAgent.PrettyPrint(actions));
 	}
 
 	public void ActionsFinished ()
@@ -80,17 +109,18 @@ public abstract class Labourer : MonoBehaviour, IGoap
 		Debug.Log ("<color=red>Plan Aborted</color> "+GoapAgent.PrettyPrint(aborter));
 	}
 
-	public bool MoveAgent(GoapAction nextAction) {
+	public bool MoveAgent(GoapAction nextAction)
+    {
 		// move towards the NextAction's target
 		float step = moveSpeed * Time.deltaTime;
 		gameObject.transform.position = Vector3.MoveTowards(gameObject.transform.position, nextAction.target.transform.position, step);
 		
-		if (gameObject.transform.position.Equals(nextAction.target.transform.position) ) {
+		if (gameObject.transform.position.Equals(nextAction.target.transform.position) )
+        {
 			// we are at the target location, we are done
-			nextAction.setInRange(true);
+			nextAction.SetInRange(true);
 			return true;
 		} else
 			return false;
 	}
 }
-

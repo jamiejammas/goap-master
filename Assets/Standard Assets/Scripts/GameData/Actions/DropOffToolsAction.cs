@@ -8,9 +8,9 @@ public class DropOffToolsAction : GoapAction
 	private SupplyPileComponent targetSupplyPile; // where we drop off the  tools
 	
 	public DropOffToolsAction () {
-		addPrecondition ("hasNewTools", true); // can't drop off tools if we don't already have some
-		addEffect ("hasNewTools", false); // we now have no tools
-		addEffect ("collectTools", true); // we collected tools
+		AddPrecondition ("hasNewTools", true); // can't drop off tools if we don't already have some
+		AddEffect ("hasNewTools", false); // we now have no tools
+		AddEffect ("collectTools", true); // we collected tools
 	}
 	
 	
@@ -37,15 +37,20 @@ public class DropOffToolsAction : GoapAction
 		SupplyPileComponent closest = null;
 		float closestDist = 0;
 		
-		foreach (SupplyPileComponent supply in supplyPiles) {
-			if (closest == null) {
+		foreach (SupplyPileComponent supply in supplyPiles)
+        {
+			if (closest == null)
+            {
 				// first one, so choose it for now
 				closest = supply;
 				closestDist = (supply.gameObject.transform.position - agent.transform.position).magnitude;
-			} else {
+			}
+            else
+            {
 				// is this one closer than the last?
 				float dist = (supply.gameObject.transform.position - agent.transform.position).magnitude;
-				if (dist < closestDist) {
+				if (dist < closestDist)
+                {
 					// we found a closer one, use it
 					closest = supply;
 					closestDist = dist;

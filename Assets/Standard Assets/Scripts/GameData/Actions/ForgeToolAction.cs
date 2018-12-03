@@ -11,8 +11,8 @@ public class ForgeToolAction : GoapAction
 	public float forgeDuration = 2; // seconds
 	
 	public ForgeToolAction () {
-		addPrecondition ("hasOre", true);
-		addEffect ("hasNewTools", true);
+		AddPrecondition ("hasOre", true);
+		AddEffect ("hasNewTools", true);
 	}
 	
 	
@@ -40,7 +40,8 @@ public class ForgeToolAction : GoapAction
 		ForgeComponent closest = null;
 		float closestDist = 0;
 		
-		foreach (ForgeComponent forge in forges) {
+		foreach (ForgeComponent forge in forges)
+        {
 			if (closest == null) {
 				// first one, so choose it for now
 				closest = forge;
@@ -69,10 +70,11 @@ public class ForgeToolAction : GoapAction
 		if (startTime == 0)
 			startTime = Time.time;
 		
-		if (Time.time - startTime > forgeDuration) {
-			// finished forging a tool
-			BackpackComponent backpack = (BackpackComponent)agent.GetComponent(typeof(BackpackComponent));
-			backpack.numOre = 0;
+		if (Time.time - startTime > forgeDuration)
+        {
+            // finished forging a tool
+            Blackboard blackBoard = agent.GetComponent<NPC_Entities>().blackBoard;
+            blackBoard.numOre = 0;
 			forged = true;
 		}
 		return true;

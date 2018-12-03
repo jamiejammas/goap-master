@@ -2,16 +2,15 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
-public class Miner : Labourer
+public class Miner : NPC_Entities
 {
 	/**
 	 * Our only goal will ever be to mine ore.
 	 * The MineOreAction will be able to fulfill this goal.
 	 */
-	public override HashSet<KeyValuePair<string,object>> CreateGoalState () {
-		HashSet<KeyValuePair<string,object>> goal = new HashSet<KeyValuePair<string,object>> ();
-		
-		goal.Add(new KeyValuePair<string, object>("collectOre", true ));
+	public override HashSet<KeyValuePair<string,object>> CreateMyGoalState ()
+    {
+		this.goal.Add(new KeyValuePair<string, object>("collectOre", true ));
 		return goal;
 	}
 

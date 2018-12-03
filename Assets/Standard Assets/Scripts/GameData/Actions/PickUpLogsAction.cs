@@ -8,8 +8,8 @@ public class PickUpLogsAction : GoapAction
 	private SupplyPileComponent targetSupplyPile; // where we get the logs from
 	
 	public PickUpLogsAction () {
-		addPrecondition ("hasLogs", false); // don't get a logs if we already have one
-		addEffect ("hasLogs", true); // we now have a logs
+		AddPrecondition ("hasLogs", false); // don't get a logs if we already have one
+		AddEffect ("hasLogs", true); // we now have a logs
 	}
 	
 	
@@ -67,9 +67,9 @@ public class PickUpLogsAction : GoapAction
 		if (targetSupplyPile.numLogs > 0) {
 			targetSupplyPile.numLogs -= 1;
 			hasLogs = true;
-			//TODO play effect, change actor icon
-			BackpackComponent backpack = (BackpackComponent)agent.GetComponent(typeof(BackpackComponent));
-			backpack.numLogs = 1;
+            //TODO play effect, change actor icon
+            Blackboard blackBoard = agent.GetComponent<NPC_Entities>().blackBoard;
+            blackBoard.numLogs = 1;
 			
 			return true;
 		} else {

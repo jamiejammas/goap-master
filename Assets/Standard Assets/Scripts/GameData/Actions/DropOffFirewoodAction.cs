@@ -8,9 +8,9 @@ public class DropOffFirewoodAction : GoapAction
 	private SupplyPileComponent targetSupplyPile; // where we drop off the firewood
 	
 	public DropOffFirewoodAction () {
-		addPrecondition ("hasFirewood", true); // can't drop off firewood if we don't already have some
-		addEffect ("hasFirewood", false); // we now have no firewood
-		addEffect ("collectFirewood", true); // we collected firewood
+		AddPrecondition ("hasFirewood", true); // can't drop off firewood if we don't already have some
+		AddEffect ("hasFirewood", false); // we now have no firewood
+		AddEffect ("collectFirewood", true); // we collected firewood
 	}
 	
 	
@@ -63,10 +63,10 @@ public class DropOffFirewoodAction : GoapAction
 	
 	public override bool Perform (GameObject agent)
 	{
-		BackpackComponent backpack = (BackpackComponent)agent.GetComponent(typeof(BackpackComponent));
-		targetSupplyPile.numFirewood += backpack.numFirewood;
+        Blackboard blackBoard = agent.GetComponent<NPC_Entities>().blackBoard;
+        targetSupplyPile.numFirewood += blackBoard.numFirewood;
 		droppedOffFirewood = true;
-		backpack.numFirewood = 0;
+        blackBoard.numFirewood = 0;
 		
 		return true;
 	}

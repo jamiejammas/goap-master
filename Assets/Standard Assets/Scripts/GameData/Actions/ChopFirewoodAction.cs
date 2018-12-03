@@ -11,9 +11,9 @@ public class ChopFirewoodAction : GoapAction
 	public float workDuration = 2; // seconds
 	
 	public ChopFirewoodAction () {
-		addPrecondition ("hasTool", true); // we need a tool to do this
-		addPrecondition ("hasFirewood", false); // if we have firewood we don't want more
-		addEffect ("hasFirewood", true);
+		AddPrecondition ("hasTool", true); // we need a tool to do this
+		AddPrecondition ("hasFirewood", false); // if we have firewood we don't want more
+		AddEffect ("hasFirewood", true);
 	}
 	
 	
@@ -71,8 +71,8 @@ public class ChopFirewoodAction : GoapAction
 			startTime = Time.time;
 		
 		if (Time.time - startTime > workDuration) {
-			// finished chopping
-			BackpackComponent backpack = (BackpackComponent)agent.GetComponent(typeof(BackpackComponent));
+            // finished chopping
+            Blackboard backpack = agent.GetComponent<NPC_Entities>().blackBoard;
 			backpack.numFirewood += 5;
 			chopped = true;
 			ToolComponent tool = backpack.tool.GetComponent(typeof(ToolComponent)) as ToolComponent;

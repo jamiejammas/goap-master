@@ -8,8 +8,8 @@ public class PickUpOreAction : GoapAction
 	private SupplyPileComponent targetSupplyPile; // where we get the ore from
 	
 	public PickUpOreAction () {
-		addPrecondition ("hasOre", false); // don't get a ore if we already have one
-		addEffect ("hasOre", true); // we now have a ore
+		AddPrecondition ("hasOre", false); // don't get a ore if we already have one
+		AddEffect ("hasOre", true); // we now have a ore
 	}
 	
 	
@@ -67,9 +67,9 @@ public class PickUpOreAction : GoapAction
 		if (targetSupplyPile.numOre >= 3) {
 			targetSupplyPile.numOre -= 3;
 			hasOre = true;
-			//TODO play effect, change actor icon
-			BackpackComponent backpack = (BackpackComponent)agent.GetComponent(typeof(BackpackComponent));
-			backpack.numOre += 3;
+            //TODO play effect, change actor icon
+            Blackboard blackBoard = agent.GetComponent<NPC_Entities>().blackBoard;
+            blackBoard.numOre += 3;
 			
 			return true;
 		} else {

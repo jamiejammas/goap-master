@@ -22,13 +22,13 @@ public interface IGoap
 	 * The starting state of the Agent and the world.
 	 * Supply what states are needed for actions to run.
 	 */
-	HashSet<KeyValuePair<string,object>> GetWorldState ();
+	HashSet<KeyValuePair<string,object>> GetMyWorldState ();
 
 	/**
 	 * Give the planner a new goal so it can figure out 
 	 * the actions needed to fulfill it.
 	 */
-	HashSet<KeyValuePair<string,object>> CreateGoalState ();
+	HashSet<KeyValuePair<string,object>> CreateMyGoalState ();
 
 	/**
 	 * No sequence of actions could be found for the supplied goal.

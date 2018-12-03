@@ -1,0 +1,20 @@
+-is the world state like a black board? 
+	-if so do we want to populate this world state via Barks? 
+
+-if the world state isnt like a black board then we should have a bark in the dataprovider that is constantly 
+telling everyone what is going on that will listen  
+
+---------------------
+
+back pack is our black board? 
+	- because this 'holds' the current world state
+	
+if this is the case then how can 'bark' whats in our backpack? 
+and how can receive these barks easily? 
+	-we are a data provider so have an area to slot in barks? 
+	
+	
+---------------
+
+now that we know we have a blackboard, how should we go about 
+broadcasting the worldstate?

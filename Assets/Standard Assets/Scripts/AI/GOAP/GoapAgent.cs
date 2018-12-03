@@ -64,8 +64,8 @@ public sealed class GoapAgent : MonoBehaviour {
 			// GOAP planning
 
 			// get the world state and the goal we want to plan for
-			HashSet<KeyValuePair<string,object>> worldState = dataProvider.GetWorldState();
-			HashSet<KeyValuePair<string,object>> goal = dataProvider.CreateGoalState();
+			HashSet<KeyValuePair<string,object>> worldState = dataProvider.GetMyWorldState();
+			HashSet<KeyValuePair<string,object>> goal = dataProvider.CreateMyGoalState();
 
 			// Plan
 			Queue<GoapAction> plan = planner.Plan(gameObject, availableActions, worldState, goal);
@@ -149,7 +149,7 @@ public sealed class GoapAgent : MonoBehaviour {
 			if (HasActionPlan()) {
 				// perform the next action
 				action = currentActions.Peek();
-				bool inRange = action.RequiresInRange() ? action.isInRange() : true;
+				bool inRange = action.RequiresInRange() ? action.IsInRange() : true;
 
 				if ( inRange ) {
 					// we are in range, so perform the action

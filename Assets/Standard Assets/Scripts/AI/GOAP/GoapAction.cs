@@ -65,23 +65,28 @@ public abstract class GoapAction : MonoBehaviour {
 	 * Are we in range of the target?
 	 * The MoveTo state will set this and it gets reset each time this action is performed.
 	 */
-	public bool isInRange () {
+	public bool IsInRange ()
+    {
 		return inRange;
 	}
 	
-	public void setInRange(bool inRange) {
+	public void SetInRange(bool inRange)
+    {
 		this.inRange = inRange;
 	}
 
 
-	public void addPrecondition(string key, object value) {
+	public void AddPrecondition(string key, object value)
+    {
 		preconditions.Add (new KeyValuePair<string, object>(key, value) );
 	}
 
 
-	public void removePrecondition(string key) {
+	public void RemovePrecondition(string key)
+    {
 		KeyValuePair<string, object> remove = default(KeyValuePair<string,object>);
-		foreach (KeyValuePair<string, object> kvp in preconditions) {
+		foreach (KeyValuePair<string, object> kvp in preconditions)
+        {
 			if (kvp.Key.Equals (key)) 
 				remove = kvp;
 		}
@@ -90,14 +95,17 @@ public abstract class GoapAction : MonoBehaviour {
 	}
 
 
-	public void addEffect(string key, object value) {
+	public void AddEffect(string key, object value)
+    {
 		effects.Add (new KeyValuePair<string, object>(key, value) );
 	}
 
 
-	public void removeEffect(string key) {
+	public void RemoveEffect(string key)
+    {
 		KeyValuePair<string, object> remove = default(KeyValuePair<string,object>);
-		foreach (KeyValuePair<string, object> kvp in effects) {
+		foreach (KeyValuePair<string, object> kvp in effects)
+        {
 			if (kvp.Key.Equals (key)) 
 				remove = kvp;
 		}
@@ -105,15 +113,18 @@ public abstract class GoapAction : MonoBehaviour {
 			effects.Remove (remove);
 	}
 
-	
-	public HashSet<KeyValuePair<string, object>> Preconditions {
-		get {
+	public HashSet<KeyValuePair<string, object>> Preconditions
+    {
+		get
+        {
 			return preconditions;
 		}
 	}
 
-	public HashSet<KeyValuePair<string, object>> Effects {
-		get {
+	public HashSet<KeyValuePair<string, object>> Effects
+    {
+		get
+        {
 			return effects;
 		}
 	}

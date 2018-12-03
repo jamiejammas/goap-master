@@ -4,7 +4,10 @@ using System.Collections;
 /**
  * Holds resources for the Agent.
  */
-public class BackpackComponent : MonoBehaviour
+
+[System.Serializable]
+
+public class Blackboard 
 {
 	public GameObject tool;
 	public int numLogs;

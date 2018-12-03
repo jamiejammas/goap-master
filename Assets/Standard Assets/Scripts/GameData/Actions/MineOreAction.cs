@@ -11,9 +11,9 @@ public class MineOreAction : GoapAction
 	public float miningDuration = 2; // seconds
 
 	public MineOreAction () {
-		addPrecondition ("hasTool", true); // we need a tool to do this
-		addPrecondition ("hasOre", false); // if we have ore we don't want more
-		addEffect ("hasOre", true);
+		AddPrecondition ("hasTool", true); // we need a tool to do this
+		AddPrecondition ("hasOre", false); // if we have ore we don't want more
+		AddEffect ("hasOre", true);
 	}
 	
 	
@@ -68,15 +68,15 @@ public class MineOreAction : GoapAction
 			startTime = Time.time;
 
 		if (Time.time - startTime > miningDuration) {
-			// finished mining
-			BackpackComponent backpack = (BackpackComponent)agent.GetComponent(typeof(BackpackComponent));
-			backpack.numOre += 2;
+            // finished mining
+            Blackboard blackBoard = agent.GetComponent<NPC_Entities>().blackBoard;
+			blackBoard.numOre += 2;
 			mined = true;
-			ToolComponent tool = backpack.tool.GetComponent(typeof(ToolComponent)) as ToolComponent;
+			ToolComponent tool = blackBoard.tool.GetComponent(typeof(ToolComponent)) as ToolComponent;
 			tool.use(0.5f);
 			if (tool.destroyed()) {
-				Destroy(backpack.tool);
-				backpack.tool = null;
+				Destroy(blackBoard.tool);
+				blackBoard.tool = null;
 			}
 		}
 		return true;

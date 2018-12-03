@@ -8,9 +8,9 @@ public class DropOffOreAction : GoapAction
 	private SupplyPileComponent targetSupplyPile; // where we drop off the ore
 	
 	public DropOffOreAction () {
-		addPrecondition ("hasOre", true); // can't drop off ore if we don't already have some
-		addEffect ("hasOre", false); // we now have no ore
-		addEffect ("collectOre", true); // we collected ore
+		AddPrecondition ("hasOre", true); // can't drop off ore if we don't already have some
+		AddEffect ("hasOre", false); // we now have no ore
+		AddEffect ("collectOre", true); // we collected ore
 	}
 	
 	
@@ -63,10 +63,10 @@ public class DropOffOreAction : GoapAction
 	
 	public override bool Perform (GameObject agent)
 	{
-		BackpackComponent backpack = (BackpackComponent)agent.GetComponent(typeof(BackpackComponent));
-		targetSupplyPile.numOre += backpack.numOre;
+        Blackboard blackBoard = agent.GetComponent<NPC_Entities>().blackBoard;
+		targetSupplyPile.numOre += blackBoard.numOre;
 		droppedOffOre = true;
-		backpack.numOre = 0;
+		blackBoard.numOre = 0;
 		//TODO play effect, change actor icon
 		
 		return true;

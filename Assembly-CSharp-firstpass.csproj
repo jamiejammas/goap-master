@@ -68,6 +68,7 @@
     <Compile Include="Assets\Standard Assets\Scripts\AI\GOAP\IGoap.cs" />
     <Compile Include="Assets\Standard Assets\Scripts\GameData\Actions\ChopFirewoodAction.cs" />
     <Compile Include="Assets\Standard Assets\Scripts\GameData\Actions\ChopTreeAction.cs" />
+    <Compile Include="Assets\Standard Assets\Scripts\GameData\Actions\CleanAction.cs" />
     <Compile Include="Assets\Standard Assets\Scripts\GameData\Actions\DropOffFirewoodAction.cs" />
     <Compile Include="Assets\Standard Assets\Scripts\GameData\Actions\DropOffLogsAction.cs" />
     <Compile Include="Assets\Standard Assets\Scripts\GameData\Actions\DropOffOreAction.cs" />
@@ -77,14 +78,14 @@
     <Compile Include="Assets\Standard Assets\Scripts\GameData\Actions\PickUpLogsAction.cs" />
     <Compile Include="Assets\Standard Assets\Scripts\GameData\Actions\PickUpOreAction.cs" />
     <Compile Include="Assets\Standard Assets\Scripts\GameData\Actions\PickUpToolAction.cs" />
-    <Compile Include="Assets\Standard Assets\Scripts\GameData\BackpackComponent.cs" />
+    <Compile Include="Assets\Standard Assets\Scripts\GameData\Blackboard.cs" />
     <Compile Include="Assets\Standard Assets\Scripts\GameData\ChoppingBlockComponent.cs" />
     <Compile Include="Assets\Standard Assets\Scripts\GameData\ForgeComponent.cs" />
     <Compile Include="Assets\Standard Assets\Scripts\GameData\IronRockComponent.cs" />
     <Compile Include="Assets\Standard Assets\Scripts\GameData\Labourers\Blacksmith.cs" />
-    <Compile Include="Assets\Standard Assets\Scripts\GameData\Labourers\Labourer.cs" />
     <Compile Include="Assets\Standard Assets\Scripts\GameData\Labourers\Logger.cs" />
     <Compile Include="Assets\Standard Assets\Scripts\GameData\Labourers\Miner.cs" />
+    <Compile Include="Assets\Standard Assets\Scripts\GameData\Labourers\NPC_Entities.cs" />
     <Compile Include="Assets\Standard Assets\Scripts\GameData\Labourers\WoodCutter.cs" />
     <Compile Include="Assets\Standard Assets\Scripts\GameData\MovableComponent.cs" />
     <Compile Include="Assets\Standard Assets\Scripts\GameData\SupplyPileComponent.cs" />
